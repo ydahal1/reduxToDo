@@ -31,6 +31,7 @@ class Notes extends Component {
     const now = moment().format("LLLL");
     typeof newNote === "object" && newNote[0].length > 2
       ? db
+          .child("notes")
           .push()
           .set({
             noteContent: newNote,

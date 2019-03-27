@@ -22,7 +22,7 @@ class App extends Component {
     const previousNotes = this.state.notes;
 
     //Data snapshot
-    db.on("child_added", snap => {
+    db.child("notes").on("child_added", snap => {
       previousNotes.push({
         id: snap.key,
         noteContent: snap.val().noteContent,
@@ -32,6 +32,15 @@ class App extends Component {
       this.setState({
         notes: previousNotes
       });
+    });
+  }
+
+  //Life cycle
+  componentDidMount() {
+    const previousNotes = this.state.notes;
+
+    this.setState({
+      notes: previousNotes
     });
   }
 
@@ -51,6 +60,7 @@ class App extends Component {
                 key={note.id}
                 noteContents={note.noteContent}
                 createdOn={note.createdOn}
+                id={note.id}
               />
             );
           })}
